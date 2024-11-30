@@ -1,7 +1,7 @@
 const driverModel = require('../models/driverModel');
 const driverservice = require('../services/driverService');
 const { validationResult } = require('express-validator');
-
+const blacklistTokenModel = require('../models/blacklistToken')
 module.exports.registerDriver = async (req, res, next) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {
@@ -9,7 +9,10 @@ module.exports.registerDriver = async (req, res, next) => {
     }
 
     const { fullname, email, password, vehicle } = req.body;
-
+    console.log(email);
+    console.log(password);
+    
+    
     const driverExist = await driverModel.findOne({ email });
     if (driverExist) {
         return res.status(400).json({ message: 'Email already exists' });
@@ -33,3 +36,46 @@ module.exports.registerDriver = async (req, res, next) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+module.exports.loginDriver = async (req, res, next) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ errors: error.array() });
+    }
+
+    const { email, password } = req.body;
+    console.log(email);
+    console.log(password);
+    
+    
+    const driver = await driverModel.findOne({ email }).select('+password');
+    if (!driver) {
+        return res.status(400).json({ message: 'Invalid email' });
+    }
+
+    const isValid = await driver.comparePassword(password);
+    if (!isValid) {
+        return res.status(400).json({ message: 'Invalid password' });
+    }
+
+    
+    const token = driver.generateAuthToken();
+    res.cookie('token',token)
+    res.status(200).json({ token, driver });
+};
+
+module.exports.getDriverProfile = async(req,res,next)=>{
+    res.status(200).json({driver:req.driver})
+}
+
+module.exports.logoutDriver = async(req,res,next)=>{
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[ 1 ];
+
+    await blacklistTokenModel.create({token})
+
+    res.clearCookie('token')
+     
+    res.status(200).json({message:'Driver logged out successfully'})
+    
+}

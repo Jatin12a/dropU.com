@@ -6,6 +6,7 @@ module.exports.createDriver = async({
     if (!firstname || !lastname || !email || !password || !vehicletype || !plate || !color || !capacity) {
         throw new Error("Please fill all the required fields");
     }
+    const hashedPassword = await driverModel.hashPassword(password);
 
     const driver = await driverModel.create({
         fullname: {
@@ -13,7 +14,7 @@ module.exports.createDriver = async({
             lastname
         },
         email,
-        password,
+        password:hashedPassword,
         vehicle: {
             vehicletype,
             color,
