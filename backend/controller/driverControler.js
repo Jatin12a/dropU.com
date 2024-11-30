@@ -9,8 +9,6 @@ module.exports.registerDriver = async (req, res, next) => {
     }
 
     const { fullname, email, password, vehicle } = req.body;
-    console.log(email);
-    console.log(password);
     
     
     const driverExist = await driverModel.findOne({ email });
@@ -45,8 +43,7 @@ module.exports.loginDriver = async (req, res, next) => {
     }
 
     const { email, password } = req.body;
-    console.log(email);
-    console.log(password);
+ 
     
     
     const driver = await driverModel.findOne({ email }).select('+password');
