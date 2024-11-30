@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser')
 const app = express();
 const connectToDB = require('./db/dbconnect');
 const userRoutes = require('./routes/userRoutes')
+const driverRoutes= require('./routes/driverRoutes')
+
 connectToDB();
 
 
@@ -17,6 +19,6 @@ app.use(cookieParser());
 
 
 app.use('/users',userRoutes)
-
+app.use('/driver',driverRoutes)
 
 module.exports = app;
