@@ -13,8 +13,9 @@ const DriverSignup = () => {
     e.preventDefault();
     console.log(firstname, lastname, email, password);
     setUserData({
+      fullName:{
       firstname: firstname,
-      lastname: lastname,
+      lastname: lastname},
       email: email,
       password: password,
     });

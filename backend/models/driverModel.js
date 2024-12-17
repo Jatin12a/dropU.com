@@ -26,7 +26,7 @@ const driverSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        select: false, // Don't send password by default
+        select: false, 
     },
     socketID: {
         type: String,
@@ -34,7 +34,7 @@ const driverSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['active', 'inactive', 'busy'],
-        default: 'inactive', // Driver can have different statuses
+        default: 'inactive',
     },
     vehicle: {
 
