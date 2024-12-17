@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import logo from '../assets/Logo.png';
+import axios from 'axios'
+import {UserDataContext} from '../context/UserContext';
+
 
 const Signup = () => {
   const [firstname, setFirstname] = useState('');
@@ -8,18 +11,27 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const {user,setUser} = React.useContext(UserDataContext)
+
+  const submitHandler = async(e) => {
     e.preventDefault();
-    console.log(firstname, lastname, email, password);
-    setUserData({
-      fullName:{
+    const newUser = {
+      fullname:{
         firstname: firstname,
         lastname: lastname},
       email: email,
       password: password,
-    });
+    }
     console.log(userData);
+    const response = await axios.post(`http://localhost:4000/users/register`,newUser)
+    if(response.status===201){
+       const data = response.data
+      setUser(data.user)
+      localStorage.setItem('token',data.token)
+       navigate('/home')
+    }
 
     setFirstname('');
     setLastname('');
