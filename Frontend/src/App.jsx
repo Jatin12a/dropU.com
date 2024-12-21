@@ -8,10 +8,11 @@ import DriverSignup from './pages/DriverSignup'
 import { UserDataContext } from './context/UserContext'
 import Home from './pages/Home'
 import UserProtected from './pages/UserProtected'
-const App = () => {
+import UserLogout from './pages/UserLogout'
+import DriverHome from './pages/DriverHome'
+import DriverProtected from './pages/DriverProtected'
 
- const ans= useContext(UserDataContext)
- console.log(ans);
+const App = () => {
  
 
   return (
@@ -24,6 +25,14 @@ const App = () => {
       <Route path='/home' element={<UserProtected>
         <Home/>
       </UserProtected>}/>
+      <Route path='/user/logout' element={
+        <UserProtected>
+          <UserLogout/>
+        </UserProtected>
+      }/>
+      <Route path='/driver-home' element={<DriverProtected>
+        <DriverHome/>
+      </DriverProtected>}/>
     </Routes>
   )
 }
