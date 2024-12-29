@@ -6,6 +6,8 @@ import 'remixicon/fonts/remixicon.css'
 import LocationSearch from '../components/LocationSearch';
 import VehicleChoice from '../components/vehicleChoice';
 import SelectedVehicle from '../components/SelectedVehicle';
+import LookingDriver from '../components/LookingDriver';
+import WaitingDriver from '../components/WaitingDriver';
 export default function Home() {
 
   const [pickup, setPickup] = useState('')
@@ -18,6 +20,13 @@ export default function Home() {
   const [vehicleChoice, setVehicleChoice] = useState(false)
   const [selectedVehicle, setSelectedVehicle] = useState(false)
   const selectedVehicleRef = useRef(null)
+
+  const VehicleFoundRef = useRef(null)
+  const [vehicleFound, setVehicleFound] = useState(false)
+
+  const WaitingFoundRef = useRef(null)
+  const [waitingFound, setWaitingFound] = useState(false)
+
 
   const submitHandler = (e)=>{
     e.preventDefault()
@@ -76,6 +85,35 @@ export default function Home() {
     }
    },[selectedVehicle])
 
+   useGSAP(function(){
+    if(vehicleFound){
+     gsap.to(
+       VehicleFoundRef.current,{
+         transform:'translateY(0)'
+       })
+    }else{
+     gsap.to(
+       VehicleFoundRef.current,{
+         transform:'translateY(100%)'
+       }
+     )
+    }
+   },[vehicleFound])
+
+   useGSAP(function(){
+    if(waitingFound){
+     gsap.to(
+      WaitingFoundRef.current,{
+         transform:'translateY(0)'
+       })
+    }else{
+     gsap.to(
+       WaitingFoundRef.current,{
+         transform:'translateY(100%)'
+       }
+     )
+    }
+   },[waitingFound])
 
 
   return (
@@ -129,9 +167,16 @@ export default function Home() {
       <VehicleChoice setSelectedVehicle={setSelectedVehicle} setVehicleChoice={setVehicleChoice} />
 
       </div>
-      <div ref={selectedVehicleRef} className='fixed w-full translate-y-full z-10 bottom-0 bg-white px-3 py-6 '>
-      <SelectedVehicle setSelectedVehicle={setSelectedVehicle} />
+      <div ref={selectedVehicleRef} className='fixed w-full translate-y-full z-10 bottom-0 bg-white px-12 py-6 '>
+      <SelectedVehicle setSelectedVehicle={setSelectedVehicle} setVehicleFound={setVehicleFound} />
+      </div>
 
+      <div ref={VehicleFoundRef}  className='fixed w-full translate-y-full z-10 bottom-0 bg-white px-12 py-6 '>
+      <LookingDriver setVehicleFound={setVehicleFound} setWaitingFound={setWaitingFound} />
+      </div>
+
+      <div ref={WaitingFoundRef}  className='fixed w-full z-10 bottom-0 bg-white px-12 py-6 '>
+      <WaitingDriver setWaitingFound={setWaitingFound}  />
       </div>
     </div>
   ) 
