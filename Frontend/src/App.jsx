@@ -12,6 +12,8 @@ import UserLogout from './pages/UserLogout'
 import DriverHome from './pages/DriverHome'
 import DriverProtected from './pages/DriverProtected'
 import DriverLogout from './pages/DriverLogout'
+import Riding from './pages/Riding'
+import DriverRiding from './pages/DriverRiding'
 
 const App = () => {
  
@@ -39,6 +41,9 @@ const App = () => {
           <DriverLogout/>
         </DriverProtected>
       }/>
+      <Route path='/riding' element={<Riding/>}/>
+      <Route path='/driver-riding' element={<DriverRiding/>}/>
+
     </Routes>
   )
 }
