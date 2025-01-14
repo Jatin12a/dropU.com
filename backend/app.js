@@ -8,6 +8,7 @@ const connectToDB = require('./db/dbconnect');
 const userRoutes = require('./routes/userRoutes')
 const driverRoutes= require('./routes/driverRoutes')
 const mapsRoutes = require('./routes/mapRoutes')
+const rideRoutes = require('./routes/rideRoutes')
 
 connectToDB();
 
@@ -22,5 +23,6 @@ app.use(cookieParser());
 app.use('/users',userRoutes)
 app.use('/driver',driverRoutes)
 app.use('/maps',mapsRoutes)
+app.use('/rides',rideRoutes)
 
 module.exports = app;
