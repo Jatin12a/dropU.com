@@ -14,20 +14,20 @@ export default function LookingDriver(props) {
                         <i className='ri-map-pin-user-fill'></i>
                         <div >
                             <h3 className='text-base font-medium'>202/NN</h3>
-                            <p className='text-base -mt-1 text-gray-600' >Sikandra agra</p>
+                            <p className='text-base -mt-1 text-gray-600' >{props.pickup}</p>
                         </div>
                     </div>
                     <div className='flex  items-center gap-5  p-3 border-b-2 '>
                         <i className='ri-map-pin-2-fill'></i>
                         <div >
                             <h3 className='text-base font-medium'>202/NN</h3>
-                            <p className='text-base -mt-1 text-gray-600' >Sikandra agra</p>
+                            <p className='text-base -mt-1 text-gray-600' >{props.destination}</p>
                         </div>
                     </div>
                     <div className='flex  items-center gap-5 p-3  '>
                         <i className='ri-currency-line'></i>
                         <div >
-                            <h3 className='text-base font-medium'>$10.2</h3>
+                            <h3 className='text-base font-medium'>${props.fare[props.vehicletype]}</h3>
                             <p className='text-base -mt-1 text-gray-600' >Cash Cash</p>
                         </div>
                     </div>

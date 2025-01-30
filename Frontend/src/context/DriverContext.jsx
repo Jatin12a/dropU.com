@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 export const DriverDataContext = createContext();
 
+
 const DriverContext = ({ children }) => {
     const [driver, setDriver] = useState(null); // Store driver data
     const [isLoading, setIsLoading] = useState(false); // Indicates loading state
