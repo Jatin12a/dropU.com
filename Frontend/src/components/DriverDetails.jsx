@@ -11,7 +11,7 @@ const DriverDetails = () => {
       <div className='flex items-center justify-between'>
         <div className='flex items-center justify-start gap-3'>
           <img className='h-16 rounded-full' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZV8_LKnZGfwbUrZnzsOtWnmqi9aFV5JbeAA&s" alt="" />
-          <h4 className='tex-lg font-semibold capitalize'>{driver.fullname.firstname + " " + driver.fullname.lastname}</h4>
+          <h4 className='tex-lg font-semibold capitalize'>{driver?.fullname?.firstname + " " + driver?.fullname?.lastname}</h4>
         </div>
         <div className='text-xl font-semibold'>
           <h5 className='text-xl font-medium'>$234.5</h5>
